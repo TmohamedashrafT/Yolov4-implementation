@@ -36,14 +36,14 @@ class Training:
                               ,anchors=cfg.model.anchors,
                               iou_thresh=cfg.model.iou_wh_anchor,
                               batch_size=self.batch_size,
-                              data_aug=cfg.model.data_aug.train)
+                              data_aug=cfg.model.data_aug_train)
     self.val_loader ,self.count_classes = data_loader(img_dir=cfg.model.val_image_path,
                                    ann_dir=cfg.model.val_ann_path,
                                    anchors=cfg.model.anchors,
                                    iou_thresh=cfg.model.iou_wh_anchor,
                                    batch_size=self.batch_size,
                                    train=False,
-                                   data_aug=cfg.model.data_aug.val,
+                                   data_aug=cfg.model.data_aug_val,
                                   
                                    )
     self.start_epoch = cfg.model.start_epoch
