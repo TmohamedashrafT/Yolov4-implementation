@@ -48,9 +48,9 @@ cfg.aug.VerticalFlip = 0.5
 cfg.aug.MedianBlur = 0.2
 cfg.aug.Blur = 0.1
 cfg.aug.ImageCompression = 0.0
-cfg.aug.Affine.scale = 0.1
-cfg.aug.Affine.shear = 10
-cfg.aug.Affine.rotate = (-10,10)
+cfg.aug.Affine_scale = 0.1
+cfg.aug.Affine_shear = 10
+cfg.aug.Affine_rotate = (-10,10)
 cfg.aug.Affine = 0.5
 
 
