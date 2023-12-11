@@ -1,23 +1,20 @@
 import albumentations as A
 import cv2
-from Config import cfg
 
-def albumentation(img,labels,class_labels,size=416):
+
+def augs(img,labels, class_labels, cfg_aug):
     transform = A.Compose([
-    A.RandomCrop(width = size, height = size,p = cfg.aug.RandomCrop),
-    A.HorizontalFlip(p = cfg.aug.HorizontalFlip),
-    A.VerticalFlip(p   = cfg.aug.VerticalFlip ),
-    A.MedianBlur  (p   = cfg.aug.MedianBlur),
-    A.Blur(p = cfg.aug.Blur),
-    A.RandomBrightnessContrast(p = cfg.aug.RandomBrightnessContrast),    
-    A.ImageCompression(quality_lower = 75, p = cfg.aug.ImageCompression),
-    A.Affine(scale = cfg.aug.Affine.scale,shear = cfg.aug.Affine.shear,rotate=cfg.aug.Affine.rotate
-             ,p = cfg.aug.Affine),], 
-    bbox_params = A.BboxParams(format = 'yolo', label_fields = ['class_labels']))
+    A.HorizontalFlip(p = cfg_aug['HorizontalFlip']),
+    A.RandomBrightnessContrast(p = cfg_aug['RandomBrightnessContrast']),
+    A.VerticalFlip(p = cfg_aug['VerticalFlip']),
+    A.MedianBlur(p = cfg_aug['MedianBlur']),
+    A.ImageCompression(quality_lower = 75, p = cfg_aug['ImageCompression']),
+    A.Affine(scale=cfg_aug.Affine['scale'], shear = cfg_aug['Affine']['shear'], rotate = cfg_aug['Affine']['rotate'], p = cfg_aug['Affine']['p'])],
+    bbox_params = A.BboxParams(format='yolo', label_fields=['class_labels']))
     transformed = transform(image = img, bboxes = labels, class_labels = class_labels)
-    img=transformed['image']
+    img = transformed['image']
     labels=np.array([[c, *b] for c, b in zip(transformed['class_labels'], transformed['bboxes'])])
-    return img,labels
+    return img, labels
 
 def random_crop(self,image, bboxes):
         if random.random()<0.5:
