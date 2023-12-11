@@ -156,7 +156,7 @@ class get_color:
     def get_color(self, class_name):
         return self.color_map[class_name]
  
- def draw_boxes(img_path, preds, shapes, classes,):
+def draw_boxes(img_path, preds, shapes, classes):
   img = cv2.imread(img_path)
   img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB )
   colors = get_color(classes)
