@@ -8,6 +8,9 @@ from tqdm import tqdm
 import torch
 import argparse
 import os
+import warnings
+warnings.filterwarnings("ignore")
+
 try:
     from apex import amp
 except:
