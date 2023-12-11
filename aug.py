@@ -10,7 +10,7 @@ def augs(img,labels, class_labels, cfg_aug):
     A.VerticalFlip(p = cfg_aug['VerticalFlip']),
     A.MedianBlur(p = cfg_aug['MedianBlur']),
     A.ImageCompression(quality_lower = 75, p = cfg_aug['ImageCompression']),
-    A.Affine(scale=cfg_aug.Affine['scale'], shear = cfg_aug['Affine']['shear'], rotate = cfg_aug['Affine']['rotate'], p = cfg_aug['Affine']['p'])],
+    A.Affine(scale=cfg_aug['Affine']['scale'], shear = cfg_aug['Affine']['shear'], rotate = (-cfg_aug['Affine']['rotate'], cfg_aug['Affine']['rotate']), p = cfg_aug['Affine']['p'])],
     bbox_params = A.BboxParams(format='yolo', label_fields=['class_labels']))
     transformed = transform(image = img, bboxes = labels, class_labels = class_labels)
     img = transformed['image']
