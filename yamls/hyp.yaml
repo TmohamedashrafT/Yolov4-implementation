@@ -1,0 +1,13 @@
+img_size : 224
+strides : [8,16,32]
+batch_size : 16
+data_aug_train : True
+max_boxes : 50
+optimizer : 'Adam'
+anchors : [1.2500,1.6250,2.0000,3.7500,4.1250,2.8750,1.8750,3.8125,3.8750,2.8125,3.6875,7.4375,3.6250,2.8125,4.8750, 6.1875,11.6562, 10.1875] 
+fp16 : False
+lr: 0.001
+momentum: 0.937
+weight_decay: 0.0005
+anchor_thresh : 0.3
+patience: 50
