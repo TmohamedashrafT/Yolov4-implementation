@@ -33,7 +33,7 @@ def pred(img_path = '',
   preds = NMS(preds,conf_thresh,iou_thresh)
   t2 = time.time()
   print('prediction speed = ',t1 - t0,'NMS speed = ',t2 - t1) 
-  draw_boxes(img_path,preds,shapes,classes,save_dire)
+  draw_boxes(img_path,preds,shapes,classes)
     
 
 if __name__ == "__main__":
