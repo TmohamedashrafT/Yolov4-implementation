@@ -7,6 +7,7 @@ from eval import eval_
 from tqdm import tqdm
 import torch
 import argparse
+import os
 try:
     from apex import amp
 except:
@@ -89,7 +90,7 @@ class Training:
         self.optimizer.zero_grad()
       self.scheduler.step()
       self.scheduler.get_last_lr()
-      print(f'epoch {epoch}/{self.epochs} box loss = ',box_loss,'  conf loss = ',obj_loss,'  cls loss = ',cls_loss,'\n')
+      print(f'epoch {epoch}/{self.epochs} box loss = ',box_loss.round(decimals=3),'  conf loss = ',obj_loss.round(decimals=3),'  cls loss = ',cls_loss.round(decimals=3),'\n')
       map, maps  =eval_(device      = self.device,
                             batch_size = self.batch_size,
                             img_size   = self.img_size,
@@ -97,7 +98,7 @@ class Training:
                             val_loader = self.val_loader,
                             classes    = self.classes,
                             count_classes = self.count_classes)
-
+      
       self.save_model(epoch,map[0],map[1])
       ### early stopping
       if self.eatly_stopping(self.weighted_map(map[0],map[1])):
@@ -105,7 +106,15 @@ class Training:
         break
       ### end epoch
     print('################ Training Finished ################')
-
+    print('loading best weights')
+    load_model(os.path.join(self.weights_path, 'best.pt')
+    map, maps  =eval_(device      = self.device,
+                            batch_size = self.batch_size,
+                            img_size   = self.img_size,
+                            model      = self.model,
+                            val_loader = self.val_loader,
+                            classes    = self.classes,
+                            count_classes = self.count_classes)           
 
   def weighted_map(self,map50,map50_95,Wmap50=0.1,Wmap50_95=0.9):
       return map50 * Wmap50 + map50_95 * Wmap50_95
@@ -130,10 +139,10 @@ class Training:
             'anchors':self.anchors,
              'classes': self.classes
             }
-      torch.save(ckpt, self.weights_path+'last.pt')
+      torch.save(ckpt, os.path.join(self.weights_path,'last.pt'))
       if map_>self.best_map:
           self.best_map=map_
-          torch.save(ckpt, self.weights_path+'best.pt')
+          torch.save(ckpt, os.path.join(self.weights_path, 'best.pt'))
       del ckpt
   
   def optimizer_(self,opt_name='RMSProp',lr=0.001,momentum=0.9,weight_decay=1e-5):
