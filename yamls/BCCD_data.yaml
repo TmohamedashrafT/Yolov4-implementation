@@ -1,0 +1,6 @@
+train_image_path : '/content/BCCD-794/train/images/'
+train_ann_path   : '/content/BCCD-794/train/labels/'
+val_image_path: '/content/BCCD-794/valid/images' 
+val_ann_path  : '/content/BCCD-794/valid/labels' 
+num_classes : 3
+classes : ['Platelets','RBC','WBC']

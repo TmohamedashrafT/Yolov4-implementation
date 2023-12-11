@@ -1,0 +1,6 @@
+HorizontalFlip: 0.5
+RandomBrightnessContrast: 0.3
+VerticalFlip: 0.5
+MedianBlur: 0.01
+ImageCompression: 0
+Affine:  {'scale':0.1, 'shear':10, 'rotate':(-10,10),'p':0.4}
