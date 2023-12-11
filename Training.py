@@ -19,7 +19,7 @@ class Training:
     self.best_map = 0
     self.batch_size = cfg['batch_size']
     self.anchors = cfg['anchors']
-    print('loading model')
+    print('loading the model')
     self.model = Yolov4(num_classes = cfg['num_classes'],
                         anchors = cfg['anchors'],
                         device  = self.device,
@@ -32,7 +32,7 @@ class Training:
     self.eatly_stopping= Early_stopping(patience = cfg['patience'])
     if  cfg['pretrained'] and  cfg['weights'][-3:]=='.pt':
       self.load_model(cfg['weights'])
-    print('loading data')
+    print('loading the data')
     self.train_loader,_= data_loader(img_dir =cfg['train_image_path'],
                                     ann_dir  = cfg['train_ann_path'],
                                     anchors  = cfg['anchors'],
@@ -106,8 +106,8 @@ class Training:
         break
       ### end epoch
     print('################ Training Finished ################')
-    print('loading best weights')
-    load_model(os.path.join(self.weights_path, 'best.pt')
+    print('loading the best weights')
+    load_model(os.path.join(self.weights_path, 'best.pt'))
     map, maps  =eval_(device      = self.device,
                             batch_size = self.batch_size,
                             img_size   = self.img_size,
