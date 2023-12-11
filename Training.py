@@ -36,7 +36,7 @@ class Training:
                                     ann_dir  = cfg['train_ann_path'],
                                     anchors  = cfg['anchors'],
                                     img_size = cfg['img_size'],
-                                    data_aug = False,
+                                    data_aug = True,
                                     cfg_aug  = aug,
                                     max_boxes=cfg['max_boxes'],
                                     num_classes   = cfg['num_classes'],
