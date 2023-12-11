@@ -1,6 +1,6 @@
-from common import *
+from Yolov4_architecture.common import *
 class SPP(nn.Module):
-    def __init__(self,feature_channels=[64, 128, 256, 512, 1024],pooling_size=[5,9,13],activation='leaky'):
+    def __init__(self,feature_channels=[64, 128, 256, 512, 1024],pooling_size=[5,9,13], activation='leaky'):
         super(SPP, self).__init__()
         self.conv = nn.Sequential(
                     conv2d(feature_channels[-1],feature_channels[-2],1,activation=activation),
@@ -14,7 +14,7 @@ class SPP(nn.Module):
         x[2] = torch.cat([x[2]]+features, dim=1)
         return x
 class PaNet(nn.Module):
-    def __init__(self,feature_channels=[64, 128, 256, 512, 1024],activation='leaky'):
+    def __init__(self,feature_channels=[64, 128, 256, 512, 1024], activation='leaky'):
         super(PaNet,self).__init__()
         '''torch.Size([1, 256, 56, 56])
         torch.Size([1, 512, 28, 28])
@@ -67,7 +67,7 @@ class PaNet(nn.Module):
                     conv2d(feature_channels[-1],feature_channels[-2],1,activation=activation)
                     )
         self.lstconvs = nn.ModuleList(
-                    conv2d(feature_channels[i]//2, feature_channels[i], 3,activation='leaky') for i in range(2,5)
+                    conv2d(feature_channels[i]//2, feature_channels[i], 3, activation='leaky') for i in range(2,5)
                       ) 
     def forward(self,x):
         x[2]=self.conv_1(x[2])

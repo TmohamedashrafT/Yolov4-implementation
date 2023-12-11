@@ -1,4 +1,4 @@
-from common import *
+from Yolov4_architecture.common import *
 
 class CSPblock(nn.Module):
     def __init__(self,in_channels,out_channels,hidden_channels='None'):
