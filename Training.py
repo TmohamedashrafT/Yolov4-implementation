@@ -3,7 +3,7 @@ from Compute_loss import ComputeLoss
 from Dataset_Generator import data_loader
 from torch.optim import lr_scheduler
 from Yolov4_architecture.model import Yolov4 
-from eval_ import eval_
+from eval import eval_
 from tqdm import tqdm
 import torch
 from Config import cfg
