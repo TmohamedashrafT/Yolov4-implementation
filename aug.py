@@ -1,6 +1,7 @@
 import albumentations as A
 import cv2
-
+import numpy as np
+import random
 
 def augs(img,labels, class_labels, cfg_aug):
     transform = A.Compose([
