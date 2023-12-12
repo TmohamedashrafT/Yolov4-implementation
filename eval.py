@@ -98,7 +98,7 @@ def eval_(
     seen = 0
     map50, ap50, map = 0.0, 0.0, 0.0
     jdict, stats, ap, ap_class = [], [], [], []
-    for batch_i, (im, targets, shapes) in enumerate(val_loader):
+    for batch_i, (im, targets) in enumerate(val_loader):
 
         im = im.to(device, non_blocking=True).float()/255
         targets = targets.to(device)
