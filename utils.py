@@ -167,7 +167,7 @@ def draw_boxes(img_path, preds, shapes, classes):
       continue
     if len(classes) == 1:
       pred[5] = 0
-    box = scale_boxes(pred[:4], img.shape[:2], shapes)
+    box = scale_boxes(pred[:4], shapes)
     cv2.rectangle(img,(int(box[0]),int(box[1])),(int(box[2]),int(box[3])),colors.get_color(classes[int(pred[5])]),2)
     cv2.putText(img,classes[int(pred[5])],(int(box[0]),int(box[1])),cv2.FONT_HERSHEY_PLAIN, 3, colors.get_color(classes[int(pred[5])]),2)
   plt.imshow(img)
