@@ -157,7 +157,7 @@ class get_color:
     def get_color(self, class_name):
         return self.color_map[class_name]
  
-def draw_boxes(img_path, preds, shapes, classes):
+def draw_boxes(img_path, preds, shapes, classes,save_dir = ''):
   img = cv2.imread(img_path)
   img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB )
   colors = get_color(classes)
@@ -171,5 +171,6 @@ def draw_boxes(img_path, preds, shapes, classes):
     box = scale_boxes(pred[:4], shapes)
     cv2.rectangle(img,(int(box[0]),int(box[1])),(int(box[2]),int(box[3])),colors.get_color(classes[int(pred[5])]),2)
     cv2.putText(img,classes[int(pred[5])],(int(box[0]),int(box[1])),cv2.FONT_HERSHEY_PLAIN, 3, colors.get_color(classes[int(pred[5])]),2)
-  plt.imshow(img)
+  cv2.imwrite(save_dir, img) 
+
   
