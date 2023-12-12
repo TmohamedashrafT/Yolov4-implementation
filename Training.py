@@ -59,7 +59,7 @@ class Training:
                                                     )
     notest = False
     try:
-    self.test_loader ,self.count_classes_test = data_loader(img_dir   = cfg['test_image_path'],
+        self.test_loader ,self.count_classes_test = data_loader(img_dir   = cfg['test_image_path'],
                                                       ann_dir    = cfg['test_ann_path'],
                                                       anchors    = cfg['anchors'],
                                                       img_size   = cfg['img_size'],
