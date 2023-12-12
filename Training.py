@@ -56,8 +56,18 @@ class Training:
                                                       img_size   = cfg['img_size'],
                                                       num_classes= cfg['num_classes'],
                                                       batch_size = cfg['batch_size'],
-
                                                     )
+    notest = False
+    try:
+    self.test_loader ,self.count_classes_test = data_loader(img_dir   = cfg['test_image_path'],
+                                                      ann_dir    = cfg['test_ann_path'],
+                                                      anchors    = cfg['anchors'],
+                                                      img_size   = cfg['img_size'],
+                                                      num_classes= cfg['num_classes'],
+                                                      batch_size = cfg['batch_size'],
+                                                    )
+    except:
+      notest = True
     self.epochs      = cfg['epochs']
     self.classes     = dict(enumerate(cfg['classes']))
     self.weights_path  = cfg['weights']
@@ -111,13 +121,17 @@ class Training:
     print('################ Training Finished ################')
     print('loading the best weights')
     self.load_model(os.path.join(self.weights_path, 'best.pt'))
-    map, maps  =eval_(device      = self.device,
-                            batch_size = self.batch_size,
-                            img_size   = self.img_size,
-                            model      = self.model,
-                            val_loader = self.val_loader,
-                            classes    = self.classes,
-                            count_classes = self.count_classes)           
+    if not notest:
+        self.val_loader = self.test_loader
+        self.count_classes = self.count_classes_test
+        
+    map, maps  = eval_(device      = self.device,
+                       batch_size  = self.batch_size,
+                       img_size    = self.img_size,
+                       model       = self.model,
+                       val_loader  = self.val_loader,
+                       classes     = self.classes,
+                       count_classes = self.count_classes)           
 
   def weighted_map(self,map50,map50_95,Wmap50=0.1,Wmap50_95=0.9):
       return map50 * Wmap50 + map50_95 * Wmap50_95
@@ -140,7 +154,7 @@ class Training:
             'optimizer':self.optimizer.state_dict(),
             'epoch':epoch,
             'anchors':self.anchors,
-             'classes': self.classes
+             'classes': list(self.classes.values())
             }
       torch.save(ckpt, os.path.join(self.weights_path,'last.pt'))
       if map_>self.best_map:
