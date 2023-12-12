@@ -22,6 +22,7 @@ def pred(img_path = '',
     classes = ckpt['classes'] 
     del ckpt 
   img, (oldh, oldw), (newh,neww),scale,(dw,dh)=load_image(img_path,img_size)
+  shapes  = scale, (dw,dh)
   img = img.transpose((2, 0, 1))[::-1]
   img = np.ascontiguousarray(img)
   img = torch.from_numpy(img[None])
