@@ -5,6 +5,7 @@ import numpy as np
 import cv2
 from Yolov4_architecture.model import Yolov4    
 import time
+import argparse
 def pred(img_path = '',
          conf_thresh = 0.1,
          iou_thresh  = 0.45,
