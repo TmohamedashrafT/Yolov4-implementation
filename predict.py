@@ -28,6 +28,7 @@ def pred(img_path = '',
   img = torch.from_numpy(img[None])
   img = img.to(device, non_blocking=True).float()/255
   t0 = time.time()
+  model.eval()
   with torch.no_grad():
      preds=model(img)
   t1 = time.time()
