@@ -110,7 +110,7 @@ class Training:
       ### end epoch
     print('################ Training Finished ################')
     print('loading the best weights')
-    load_model(os.path.join(self.weights_path, 'best.pt'))
+    self.load_model(os.path.join(self.weights_path, 'best.pt'))
     map, maps  =eval_(device      = self.device,
                             batch_size = self.batch_size,
                             img_size   = self.img_size,
