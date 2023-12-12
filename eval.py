@@ -154,7 +154,7 @@ if __name__ == "__main__":
     opt = parser.parse_args()
     data =  read_yaml(opt.data)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    ckpt  = torch.load(weights, map_location='cpu')
+    ckpt  = torch.load(opt.weights, map_location='cpu')
     model = Yolov4(num_classes = len(ckpt['classes']),
                    anchors = ckpt['anchors'],
                    device  = device).to(device = device)
