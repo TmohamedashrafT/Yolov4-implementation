@@ -6,6 +6,7 @@ import torchvision
 import yaml
 import random
 import matplotlib.pyplot as plt
+import os
 def read_yaml(path):
     with open(path, "r") as stream:
         try:
@@ -171,6 +172,6 @@ def draw_boxes(img_path, preds, shapes, classes,save_dir = ''):
     box = scale_boxes(pred[:4], shapes)
     cv2.rectangle(img,(int(box[0]),int(box[1])),(int(box[2]),int(box[3])),colors.get_color(classes[int(pred[5])]),2)
     cv2.putText(img,classes[int(pred[5])],(int(box[0]),int(box[1])),cv2.FONT_HERSHEY_PLAIN, 3, colors.get_color(classes[int(pred[5])]),2)
-  cv2.imwrite(save_dir, img) 
+  cv2.imwrite(os.path.join(save_dir,'test.jpg'), img) 
 
   
