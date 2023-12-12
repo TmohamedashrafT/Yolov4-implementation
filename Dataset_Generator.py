@@ -86,9 +86,7 @@ class Dataset_Generator:
   def __len__(self):
         return len(self.img_files)
   def __getitem__(self, index):
-        img, (oldh, oldw), (newh, neww), scale,pad  = load_image(self.img_files[index],self.img_size)
-        shapes                              = (oldh, oldw) ,(scale, pad)
-
+        img, (oldh, oldw), (newh, neww), scale, pad  = load_image(self.img_files[index],self.img_size)
         labels                              = self.labels[index].copy()
         num_labels                          = len(labels)
         ##labels (num_labels,class + x + y + w + h)
@@ -109,7 +107,7 @@ class Dataset_Generator:
         if not self.train:
           all_boxes   = torch.zeros((self.max_boxes, 5))
           all_boxes[:num_labels] = labels
-          return torch.from_numpy(img), all_boxes, shapes
+          return torch.from_numpy(img), all_boxes
 
         
         grid_size  = [int(self.img_size/stride) for stride in self.strides]
