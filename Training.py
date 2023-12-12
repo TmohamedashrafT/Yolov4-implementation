@@ -57,7 +57,7 @@ class Training:
                                                       num_classes= cfg['num_classes'],
                                                       batch_size = cfg['batch_size'],
                                                     )
-    notest = False
+    self.notest = False
     try:
         self.test_loader ,self.count_classes_test = data_loader(img_dir   = cfg['test_image_path'],
                                                       ann_dir    = cfg['test_ann_path'],
@@ -67,7 +67,7 @@ class Training:
                                                       batch_size = cfg['batch_size'],
                                                     )
     except:
-      notest = True
+      self.notest = True
     self.epochs      = cfg['epochs']
     self.classes     = dict(enumerate(cfg['classes']))
     self.weights_path  = cfg['weights']
@@ -121,7 +121,7 @@ class Training:
     print('################ Training Finished ################')
     print('loading the best weights')
     self.load_model(os.path.join(self.weights_path, 'best.pt'))
-    if not notest:
+    if not self.notest:
         self.val_loader = self.test_loader
         self.count_classes = self.count_classes_test
         
