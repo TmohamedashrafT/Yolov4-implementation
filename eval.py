@@ -1,8 +1,8 @@
 from utils import *
+from Yolov4_architecture.model import Yolov4 
 import torch
 import numpy as np
-
-
+import argparse
 
 def ap_per_class(tp, conf, pred_cls,count_classes):
 
@@ -48,23 +48,6 @@ def compute_ap(recall, precision):
     ap = np.trapz(np.interp(x, mrec, mpre), x)  # integrate
 
     return ap
-
-
-
-import torchvision
-import time
-import argparse
-import json
-import os
-import subprocess
-import sys
-from pathlib import Path
-
-import numpy as np
-import torch
-from tqdm import tqdm
-
-
 
 
 def process_batch(detections, labels, iouv):
@@ -160,4 +143,36 @@ def eval_(
         #print('class ' , classes[i], '    AP = ',ap)
         maps[c] = ap[i]
     return ( map50, map), maps
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data", type = str, default = "data/BBCD.yaml", help = "data.yaml")  
+    parser.add_argument("--task", type = str,  default = "test", help = "evaluation on train, val or test set ")  
+    parser.add_argument("--weights", type = str, default = "", help = "weights path")  
+    parser.add_argument("--img_size", type = int, default = 224, help = "image size")  
+    parser.add_argument("--batch_size", type = int, default = 16, help = "batch_size")  
 
+    opt = parser.parse_args()
+    data =  read_yaml(opt.data)
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    ckpt  = torch.load(weights, map_location='cpu')
+    model = Yolov4(num_classes = len(ckpt['classes']),
+                   anchors = ckpt['anchors'],
+                   device  = device).to(device = device)
+    model.load_state_dict(ckpt['weights'])
+    classes = ckpt['classes'] 
+    model.load_state_dict(ckpt['weights'])
+    val_loader , count_classes = data_loader(img_dir    = data[f'{opt.task}_image_path'],
+                                             ann_dir    = data[f'{opt.task}_ann_path'],
+                                             anchors    = ckpt['anchors'],
+                                             img_size   = opt.img_size,
+                                             num_classes= len(ckpt['classes']),
+                                             batch_size = opt.batch_size)
+    map, maps  = eval_(device   = device,
+                     batch_size = opt.batch_size,
+                     img_size   = opt.img_size,
+                     model      = model,
+                     val_loader = val_loader,
+                     classes    = classes,
+                     count_classes = count_classes)  
+    del ckpt
+    
