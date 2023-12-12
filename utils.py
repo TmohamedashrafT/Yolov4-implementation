@@ -5,6 +5,7 @@ import math
 import torchvision
 import yaml
 import random
+import matplotlib.pyplot as plt
 def read_yaml(path):
     with open(path, "r") as stream:
         try:
