@@ -22,7 +22,6 @@ def pred(img_path = '',
     classes = ckpt['classes'] 
     del ckpt 
   img, (oldh, oldw), (newh,neww),scale,(dw,dh)=load_image(img_path,img_size)
-  shapes  = scale, (dw,dh)
   img = img.transpose((2, 0, 1))[::-1]
   img = np.ascontiguousarray(img)
   img = torch.from_numpy(img[None])
@@ -35,7 +34,7 @@ def pred(img_path = '',
   preds = NMS(preds,conf_thresh,iou_thresh)
   t2 = time.time()
   print('prediction speed = ',t1 - t0,'NMS speed = ',t2 - t1) 
-  draw_boxes(img_path,preds,shapes,classes)
+  draw_boxes(img_path, preds, shapes, classes)
     
 
 if __name__ == "__main__":
