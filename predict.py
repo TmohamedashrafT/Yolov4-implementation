@@ -48,6 +48,6 @@ if __name__ == "__main__":
     pred(img_path = opt.src,
          conf_thresh = opt.conf_thresh,
          iou_thresh  = opt.iou_thresh,
-         device  = 'cuda',
+         device  = device,
          weights = opt.weights,
          img_size= opt.img_size)
