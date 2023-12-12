@@ -133,11 +133,11 @@ def NMS(boxes,conf_thresh,iou_thresh):
       output.append(batch[out_nms])
   return output
 
-def scale_boxes( boxes, gain_pad=None):
+def scale_boxes(boxes, gain_pad=None):
     # Rescale boxes (xyxy) from img1_shape to img0_shape
     #print(ratio_pad)
-    gain = ratio_pad[0]
-    pad = ratio_pad[1]
+    gain = gain_pad[0]
+    pad = gain_pad[1]
     #print(gain,ratio_pad)
     boxes[..., [0, 2]] -= pad[0]  # x padding
     boxes[..., [1, 3]] -= pad[1]  # y padding
