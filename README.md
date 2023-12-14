@@ -44,9 +44,13 @@ The authors of the paper aimed to develop and model different approaches to enha
 
 ### Yolov4 Architecture
 The YOLOv4 architecture consists of three main parts: the backbone, neck, and head.
-#### The Backbone
+#### Backbone
 In the first part, the backbone serves as a feature extractor responsible for extracting essential features from the inputs. The paper suggests various backbones such as VGG16, ResNet-50, EfficientNet-B0/B7, and CSPDarknet53(which is implemented in this repository)
 The idea behind CSPDarknet53 is rooted in Densenet but with modifications. The term 'CSP' stands for Cross Stage Partial, which signifies that in every dense block, the feature maps of the base layer (the first one) are separated into two parts. One part traverses through the block, while the other combines with the transition layer, allowing the rest of the dense block to continue as a normal dense layer. This block offers several benefits. Firstly, by separating the feature maps, it reduces the input size of the block, consequently reducing computations. Another significant advantage is the elimination of duplicated gradients in the old dense block because the output of the block concatenates with the transition layer. Additionally, it helps mitigate the issue of vanishing gradients.
+![image](https://github.com/TmohamedashrafT/Yolov4-implementation/blob/main/readme_imgs/CSPnet%20vs%20densenet2.png)
+#### Neck
+The Neck in YOLOv4 comprises two primary parts: additional blocks like SPP (Spatial Pyramid Pooling) and path-aggregation blocks such as PANet (Path Aggregation Network). In YOLOv4, SPP employs pooling sizes of 5x5, 9x9, and 13x13, maintaining the output spatial dimension. YOLOv4 adopts PAN (Path Aggregation Network) over the previously used FPN (Feature Pyramid Network) for feature aggregation. The issue with FPN stemmed from its top-down approach along the path from low to top layers. PAN addresses this by integrating a bottom-up block into the FPN architecture, creating a more direct path to the top layers. The diagram below illustrates this adjustment (green path).
+![image](https://github.com/TmohamedashrafT/Yolov4-implementation/blob/main/readme_imgs/FPN%20vs%20PANet.webp)
 
 
 
