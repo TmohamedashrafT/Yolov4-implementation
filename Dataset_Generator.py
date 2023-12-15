@@ -128,7 +128,7 @@ class Dataset_Generator:
           exist_positive = False
           for j in range(self.number_of_anchors):
             anchors_xywh = torch.zeros((3, 4))
-            anchors_xywh[:, 0:2] = (torch.floor(bbox_xywh_scaled[j, 0:2])).type(torch.int64) + 0.5
+            anchors_xywh[:, 0:2] = (torch.floor(bbox_xywh_scaled[j, 0:2])).type(torch.int64) + 0.5 ## place the anchors at the center of the same position as the label
             anchors_xywh[:, 2:4] =  self.anchors[j]
             iou_scale = bb_iou(bbox_xywh_scaled[j][np.newaxis, :], anchors_xywh)
             iou.append(iou_scale)
