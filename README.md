@@ -37,8 +37,16 @@ python eval.py --data data.yaml --task 'train' --weights 'best.pt'
 ```
 !python predict.py --src 'test_image_path'  --weights 'best.pt' --conf_thresh 0.4
 ```
-This notebook is an example of training the model on the BCCD dataset [`Yolov4 test on BCCD-794 dataset.ipynb`](https://github.com/TmohamedashrafT/Yolov4-implementation/blob/main/Yolov4%20test%20on%20BCCD-794%20dataset.ipynb)
 
+This notebook is an example of training the model on the BCCD dataset [`Yolov4 test on BCCD-794 dataset.ipynb`](https://github.com/TmohamedashrafT/Yolov4-implementation/blob/main/Yolov4%20test%20on%20BCCD-794%20dataset.ipynb)
+## TODO
+* [x] Mish activation
+* [x] CIOU Loss
+* [x] Training code
+* [x] Modified PAN
+* [x] Class label smoothing
+* [ ] Mosaic
+* [ ] MixUp
 ## Yolov4 Overview
 The authors of the paper aimed to develop and model different approaches to enhance the YOLOv4 model, introducing numerous new features compared to previous versions. These enhancements encompassed modifications to the model's architecture, the loss function, and the incorporation of new augmentation methods that increased both speed and accuracy.
 
