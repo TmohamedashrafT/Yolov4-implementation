@@ -89,7 +89,10 @@ In this repository, the objective loss is more stringent as it includes all boxe
 
 The class loss is straightforward, involving Binary Cross-Entropy (BCE) computation between the predicted and ground truth classes.
 
-
+# References 
+- https://arxiv.org/abs/2004.10934
+- https://github.com/ultralytics/yolov5
+- https://github.com/YunYang1994/TensorFlow2.0-Examples/tree/master/4-Object_Detection/YOLOV3
 
 
 
